@@ -1,0 +1,5 @@
+[user]
+	name = Madhav Ramesh
+	email = madhavramesh02@gmail.com
+[credential]
+	helper = osxkeychain
