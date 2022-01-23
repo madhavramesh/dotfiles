@@ -15,7 +15,7 @@ g.mapleader = ' '
 g.maplocalleader = ' '
 
 -- clear search highlighting
-map('n', '<CR>', ':nohlsearch<CR>')
+-- map('n', '<CR>', ':nohlsearch<CR>')
 
 -- increment/decrement
 map('n', '+', '<C-A>')
@@ -56,12 +56,39 @@ nnoremap <expr> j (v:count > 10 ? "m'" . v:count : '') . 'gj'
 ]], false);
 
 -- disable Ex mode
-map('n', 'Q', '<Nop>')
+-- map('n', 'Q', '<Nop>')
 
 -- PLUGIN MAPPINGS
 -- NERDTree toggle
 map('n', '<C-E>', ':NERDTreeToggle<CR>')
 
+-- Tagbar toggle
+map('n', '<C-P>', ':TagbarToggle<CR>')
+
 -- Interactive EasyAlign
 map('n', 'ga', '<Plug>(EasyAlign)')
 map('x', 'ga', '<Plug>(EasyAlign)')
+
+-- Blamer toggle
+map('n', '<leader>b', ':BlamerToggle<CR>')
+
+-- fugitive
+map('n', '<leader>gs', ':G<CR>')
+
+-- Move to buffers using Bufferline
+map('n', '<leader>1', ':bu 1<CR>')
+map('n', '<leader>2', ':bu 2<CR>')
+map('n', '<leader>3', ':bu 3<CR>')
+map('n', '<leader>4', ':bu 4<CR>')
+map('n', '<leader>5', ':bu 5<CR>')
+map('n', '<leader>6', ':bu 6<CR>')
+map('n', '<leader>7', ':bu 7<CR>')
+map('n', '<leader>8', ':bu 8<CR>')
+map('n', '<leader>9', ':bu 9<CR>')
+
+-- telescope
+map('n', 'ff', ':Telescope find_files<CR>')
+map('n', 'fg', ':Telescope live_grep<CR>')
+map('n', 'fb', ':Telescope buffers<CR>')
+map('n', 'fh', ':Telescope help_tags<CR>')
+map('n', 'fm', ':Telescope man_pages<CR>')
