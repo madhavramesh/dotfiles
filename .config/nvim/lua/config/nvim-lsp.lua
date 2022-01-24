@@ -12,7 +12,25 @@ end
 
 -- show diagnostics on hover 
 o.updatetime = 200
-cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+
+-- Show diagnostics in a pop-up window on hover
+_G.LspDiagnosticsPopupHandler = function()
+  local current_cursor = vim.api.nvim_win_get_cursor(0)
+  local last_popup_cursor = vim.w.lsp_diagnostics_last_cursor or {nil, nil}
+
+  -- Show the popup diagnostics window,
+  -- but only once for the current cursor location (unless moved afterwards).
+  if not (current_cursor[1] == last_popup_cursor[1] and current_cursor[2] == last_popup_cursor[2]) then
+    vim.w.lsp_diagnostics_last_cursor = current_cursor
+    vim.diagnostic.open_float(0, {scope="cursor"})   -- for neovim 0.6.0+, replaces show_{line,position}_diagnostics
+  end
+end
+vim.cmd [[
+augroup LSPDiagnosticsOnHover
+  autocmd!
+  autocmd CursorHold * lua _G.LspDiagnosticsPopupHandler()
+augroup END
+]]
 
 -- customize how diagnostics are displayed 
 -- disable virtual text and sort by severity
@@ -38,17 +56,13 @@ local handlers =  {
 local on_attach_lsp_signature = function(client, bufnr)
   require('lsp_signature').on_attach({
       bind = true, -- This is mandatory, otherwise border config won't get registered.
-      floating_window = true, -- false for virtual text only
-      floating_window_above_cur_line = true,
-      -- floating_window_off_y = 30,
-      transparency = 20,
       handler_opts = {
         border = "rounded"
       },
-      doc_lines = 2,   -- restrict documentation shown
-      zindex = 50,     -- <=50 so that it does not hide completion preview.
-      fix_pos = false, -- Let signature window change its position when needed
-      toggle_key = 'ts',  -- Press <Alt-x> to toggle signature on and off.
+      max_height = 5, 
+      hint_enable = false,
+      transparency = 5,
+      toggle_key = 'K',  -- Press <Leader>h to toggle signature on and off.
     })
 end
 
@@ -66,16 +80,16 @@ local on_attach = function(client, bufnr)
   client.resolved_capabilities.document_range_formatting = false
   
   -- Activate LSP signature on attach 
-  on_attach_lsp_signature(client, bufnr)
+  -- on_attach_lsp_signature(client, bufnr)
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   -- buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'ts', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<Leader>h', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  -- buf_set_keymap('n', '<Leader>h', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
