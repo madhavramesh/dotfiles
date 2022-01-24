@@ -153,16 +153,16 @@ _G.packer_plugins = {
     path = "/Users/madhavramesh/.local/share/nvim/site/pack/packer/start/nerdcommenter",
     url = "https://github.com/preservim/nerdcommenter"
   },
-  nerdtree = {
-    config = { "require('config.nerdtree')" },
-    loaded = true,
-    path = "/Users/madhavramesh/.local/share/nvim/site/pack/packer/start/nerdtree",
-    url = "https://github.com/preservim/nerdtree"
-  },
   ["nerdtree-git-plugin"] = {
     loaded = true,
     path = "/Users/madhavramesh/.local/share/nvim/site/pack/packer/start/nerdtree-git-plugin",
     url = "https://github.com/Xuyuanp/nerdtree-git-plugin"
+  },
+  ["null-ls.nvim"] = {
+    config = { "require('config.null-ls')" },
+    loaded = true,
+    path = "/Users/madhavramesh/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
+    url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
   },
   ["nvim-cmp"] = {
     config = { "require('config.nvim-cmp')" },
@@ -175,6 +175,12 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/madhavramesh/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
+  },
+  ["nvim-tree.lua"] = {
+    config = { "require('config.nvim-tree')" },
+    loaded = true,
+    path = "/Users/madhavramesh/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
+    url = "https://github.com/kyazdani42/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
     config = { "require('config.treesitter')" },
@@ -206,6 +212,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/madhavramesh/.local/share/nvim/site/pack/packer/start/tagbar",
     url = "https://github.com/preservim/tagbar"
+  },
+  ["telescope-fzf-native.nvim"] = {
+    loaded = true,
+    path = "/Users/madhavramesh/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
+    url = "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
   },
   ["telescope.nvim"] = {
     config = { "require('config.telescope')" },
@@ -262,18 +273,14 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: vim-startify
-time([[Config for vim-startify]], true)
-require('config.startify')
-time([[Config for vim-startify]], false)
--- Config for: LuaSnip
-time([[Config for LuaSnip]], true)
-require('config.luasnip')
-time([[Config for LuaSnip]], false)
 -- Config for: nvim-cmp
 time([[Config for nvim-cmp]], true)
 require('config.nvim-cmp')
 time([[Config for nvim-cmp]], false)
+-- Config for: vim-startify
+time([[Config for vim-startify]], true)
+require('config.startify')
+time([[Config for vim-startify]], false)
 -- Config for: nvim-lspconfig
 time([[Config for nvim-lspconfig]], true)
 require('config.nvim-lsp')
@@ -282,30 +289,38 @@ time([[Config for nvim-lspconfig]], false)
 time([[Config for lualine.nvim]], true)
 require('config.lualine')
 time([[Config for lualine.nvim]], false)
--- Config for: nvim-treesitter
-time([[Config for nvim-treesitter]], true)
-require('config.treesitter')
-time([[Config for nvim-treesitter]], false)
--- Config for: nerdcommenter
-time([[Config for nerdcommenter]], true)
-require('config.nerdcommenter')
-time([[Config for nerdcommenter]], false)
--- Config for: indent-blankline.nvim
-time([[Config for indent-blankline.nvim]], true)
-require('config.indent-blankline')
-time([[Config for indent-blankline.nvim]], false)
--- Config for: telescope.nvim
-time([[Config for telescope.nvim]], true)
-require('config.telescope')
-time([[Config for telescope.nvim]], false)
--- Config for: nerdtree
-time([[Config for nerdtree]], true)
-require('config.nerdtree')
-time([[Config for nerdtree]], false)
 -- Config for: bufferline.nvim
 time([[Config for bufferline.nvim]], true)
 require('config.bufferline')
 time([[Config for bufferline.nvim]], false)
+-- Config for: nerdcommenter
+time([[Config for nerdcommenter]], true)
+require('config.nerdcommenter')
+time([[Config for nerdcommenter]], false)
+-- Config for: nvim-treesitter
+time([[Config for nvim-treesitter]], true)
+require('config.treesitter')
+time([[Config for nvim-treesitter]], false)
+-- Config for: LuaSnip
+time([[Config for LuaSnip]], true)
+require('config.luasnip')
+time([[Config for LuaSnip]], false)
+-- Config for: null-ls.nvim
+time([[Config for null-ls.nvim]], true)
+require('config.null-ls')
+time([[Config for null-ls.nvim]], false)
+-- Config for: nvim-tree.lua
+time([[Config for nvim-tree.lua]], true)
+require('config.nvim-tree')
+time([[Config for nvim-tree.lua]], false)
+-- Config for: telescope.nvim
+time([[Config for telescope.nvim]], true)
+require('config.telescope')
+time([[Config for telescope.nvim]], false)
+-- Config for: indent-blankline.nvim
+time([[Config for indent-blankline.nvim]], true)
+require('config.indent-blankline')
+time([[Config for indent-blankline.nvim]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
@@ -314,8 +329,8 @@ time([[Defining lazy-load commands]], false)
 
 -- Keymap lazy-loads
 time([[Defining lazy-load keymaps]], true)
-vim.cmd [[noremap <silent> b <cmd>lua require("packer.load")({'blamer.nvim'}, { keys = "b", prefix = "" }, _G.packer_plugins)<cr>]]
 vim.cmd [[noremap <silent> <leader> <cmd>lua require("packer.load")({'blamer.nvim'}, { keys = "<lt>leader>", prefix = "" }, _G.packer_plugins)<cr>]]
+vim.cmd [[noremap <silent> b <cmd>lua require("packer.load")({'blamer.nvim'}, { keys = "b", prefix = "" }, _G.packer_plugins)<cr>]]
 time([[Defining lazy-load keymaps]], false)
 
 if should_profile then save_profiles() end

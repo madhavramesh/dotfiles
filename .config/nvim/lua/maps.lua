@@ -60,7 +60,8 @@ nnoremap <expr> j (v:count > 10 ? "m'" . v:count : '') . 'gj'
 
 -- PLUGIN MAPPINGS
 -- NERDTree toggle
-map('n', '<C-E>', ':NERDTreeToggle<CR>')
+map('n', '<C-E>', ':NvimTreeToggle<CR>')
+-- map('n', '<C-E>', ':NERDTreeToggle<CR>')
 
 -- Tagbar toggle
 map('n', '<C-P>', ':TagbarToggle<CR>')

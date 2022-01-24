@@ -165,3 +165,6 @@ fh() {
   eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }
 alias config='/usr/bin/git --git-dir=/Users/madhavramesh/.cfg/ --work-tree=/Users/madhavramesh'
+
+# Add clangd to environment path 
+export PATH="/usr/local/opt/llvm/bin:$PATH"

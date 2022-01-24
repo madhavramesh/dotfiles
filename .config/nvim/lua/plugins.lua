@@ -42,6 +42,7 @@ return require('packer').startup({
         use { "morhetz/gruvbox" } 
 
         -- LSP
+        use { 'jose-elias-alvarez/null-ls.nvim', config = [[require('config.null-ls')]] }
         use { 'neovim/nvim-lspconfig', config = [[require('config.nvim-lsp')]] }
         use { 'hrsh7th/cmp-nvim-lsp' }
         use { 'hrsh7th/cmp-buffer' }
@@ -57,6 +58,8 @@ return require('packer').startup({
         config = [[require('config.nvim-cmp')]]
         }
         use { 'folke/lsp-colors.nvim' }
+        -- use { 'RishabhRD/popfix' }
+        -- use { 'RishabhRD/nvim-lsputils', config = [['config.nvim-lsputils']] }
 
         -- SNIPPETS
         use { 'lervag/vimtex' }
@@ -76,7 +79,10 @@ return require('packer').startup({
         use { 'Xuyuanp/nerdtree-git-plugin' }
 
         -- UTILITIES
-        use { 'preservim/nerdtree', config = [[require('config.nerdtree')]] }
+        -- use { 'preservim/nerdtree', config = [[require('config.nerdtree')]] }
+        use { 'kyazdani42/nvim-tree.lua', 
+            requires = { 'kyazdani42/nvim-web-devicons' },
+            config = [[require('config.nvim-tree')]] }
         use { 'nvim-treesitter/nvim-treesitter',
             config = [[require('config.treesitter')]],
             run = ':TSUpdate',
@@ -86,13 +92,19 @@ return require('packer').startup({
         use { 'ludovicchabant/vim-gutentags' }
         use { 'tpope/vim-surround' }
         use { 'tpope/vim-repeat' }
+        use { 'BurntSushi/ripgrep' }
+        use { 'nvim-telescope/telescope.nvim', 
+            requires = {
+                { 'nvim-lua/plenary.nvim' }, 
+                { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+            }, 
+            config = [[require('config.telescope')]], 
+        }
         use { 'lukas-reineke/indent-blankline.nvim', config = [[require('config.indent-blankline')]] }
         use { 'sheerun/vim-polyglot' }
         use { 'jiangmiao/auto-pairs' }
         use { 'junegunn/vim-easy-align' }
         use { 'nvim-lua/plenary.nvim' }
-        use { 'nvim-telescope/telescope.nvim', config = [[require('config.telescope')]] }
-        use { 'BurntSushi/ripgrep' }
        
         -- Automatically set up your configuration after cloning packer.nvim
         -- Put this at the end after all plugins
