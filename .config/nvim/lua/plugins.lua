@@ -43,6 +43,9 @@ return require('packer').startup({
 
         -- LSP
         use { 'jose-elias-alvarez/null-ls.nvim', config = [[require('config.null-ls')]] }
+        use { 'ray-x/lsp_signature.nvim' }
+        use { 'kosayoda/nvim-lightbulb' }
+        use { 'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu' }
         use { 'neovim/nvim-lspconfig', config = [[require('config.nvim-lsp')]] }
         use { 'hrsh7th/cmp-nvim-lsp' }
         use { 'hrsh7th/cmp-buffer' }

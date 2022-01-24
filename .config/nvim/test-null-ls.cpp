@@ -1,2 +1,1 @@
-std::vector<int> a = { 1, 2, 
-4, 3 };
+env::var_os(name);

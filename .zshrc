@@ -168,3 +168,7 @@ alias config='/usr/bin/git --git-dir=/Users/madhavramesh/.cfg/ --work-tree=/User
 
 # Add clangd to environment path 
 export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+# Change editor for ranger
+export VISUAL=nvim
+export EDITOR=nvim
