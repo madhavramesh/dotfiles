@@ -8,7 +8,7 @@ local cmd = vim.cmd
 local nvim_exec = vim.api.nvim_exec
 
 -- file settings
-o.encoding = 'utf-8'			-- internal reprsentation of characters
+o.encoding = 'utf-8'			-- internal representation of characters
 o.fileencoding = 'utf-8'		-- encoding for particular file
 
 --general
@@ -20,6 +20,7 @@ o.wildignore = '*.docx, *.jpg, *.png, *.gif, *.pdf, *.pyc, *.exe, *.flv, *.img, 
 o.showmatch = true			-- cursor jumps to matching brace 
 o.clipboard = 'unnamedplus'		-- use system clipboard
 o.ttyfast = true			-- increase vim scroll speed
+o.textwidth = 100
 o.hidden = true                		-- hides buffers instead of closing them
 
 -- UI
@@ -55,7 +56,7 @@ g.gruvbox_invert_selection = 0
 cmd [[colorscheme gruvbox]]
 
 -- set search highlight color 
--- cmd [[highlight Search guifg=bg guibg=Gray]]
+cmd [[hi search cterm=bold ctermfg=239 ctermbg=109 gui=bold guifg=#504945 guibg=#83a598]]
 
 -- set cursor line color on visual mode
 if (o.background == 'dark') then
@@ -76,14 +77,25 @@ end
 cmd [[au BufEnter * set fo-=c fo-=r fo-=o]]
 
 -- set conceal level for tex conceal
-o.conceallevel = 1
+o.conceallevel = 0
 g.tex_conceal = 'admg'
+g.tex_superscripts = "[0-9a-zA-W.,:;+-<>/()=]"
+g.tex_subscripts = "[0-9aehijklmnoprstuvx,+-/().]"
 cmd [[highlight Conceal ctermbg=None]]
 
 -- Vimtex
 g.tex_flavor = 'latex'
 g.vimtex_view_method = 'zathura'
-g.vimtex_quickfix_mode = 0
+g.vimtex_compiler_method='latexmk'
+cmd [[
+let g:vimtex_compiler_latexmk = {
+    \ 'build_dir' : './build',
+    \ }
+]]
+-- g.vimtex_compiler_latexmk={ 'build_dir' = './build' }
+g.vimtex_quickfix_mode = 2
+g.vimtex_quickfix_autoclose_after_keystrokes=3
+g.vimtex_quickfix_open_on_warning = 0
 
 -- Ultisnips
 g.UltiSnipsExpandTrigger = '<tab>'
@@ -106,4 +118,3 @@ g.polyglot_disabled = { 'autoindent' }
 -- cmd [[highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4]]
 -- cmd [[highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4]]
 -- cmd [[highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4]]
-

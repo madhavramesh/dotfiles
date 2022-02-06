@@ -3,3 +3,5 @@
 	email = madhavramesh02@gmail.com
 [credential]
 	helper = osxkeychain
+[core]
+	excludesfile = /Users/madhavramesh/.gitignore_global

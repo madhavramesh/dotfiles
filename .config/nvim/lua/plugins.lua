@@ -45,30 +45,24 @@ return require('packer').startup({
         use { 'jose-elias-alvarez/null-ls.nvim', config = [[require('config.null-ls')]] }
         use { 'ray-x/lsp_signature.nvim' }
         use { 'kosayoda/nvim-lightbulb' }
-        use { 'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu' }
+        use { 'weilbith/nvim-code-action-menu', 
+            cmd = 'CodeActionMenu', 
+            config = [[require('config.code-action')]],
+        }
         use { 'neovim/nvim-lspconfig', config = [[require('config.nvim-lsp')]] }
         use { 'hrsh7th/cmp-nvim-lsp' }
         use { 'hrsh7th/cmp-buffer' }
         use { 'hrsh7th/cmp-path' }
         use { 'hrsh7th/cmp-cmdline' }
-        use { 'hrsh7th/nvim-cmp',
-            requires ={
-                'quangnguyen30192/cmp-nvim-ultisnips',
-                config = function()
-                    require("cmp_nvim_ultisnips").setup{}
-                end,
-            },
-        config = [[require('config.nvim-cmp')]]
-        }
+        use { 'hrsh7th/nvim-cmp', config = [[require('config.nvim-cmp')]]}
         use { 'folke/lsp-colors.nvim' }
-        -- use { 'RishabhRD/popfix' }
-        -- use { 'RishabhRD/nvim-lsputils', config = [['config.nvim-lsputils']] }
 
         -- SNIPPETS
         use { 'lervag/vimtex' }
         use { 'KeitaNakamura/tex-conceal.vim' }
-        use { 'L3MON4D3/LuaSnip', config = [[require('config.luasnip')]] }
+        -- use { 'rafamadriz/friendly-snippets' }
         use { 'saadparwaiz1/cmp_luasnip' }
+        use { 'L3MON4D3/LuaSnip', config = [[require('config.luasnip')]] }
         -- use { 'SirVer/ultisnips', ft ={'tex'}, config = [[require('config.ultisnips')]] }
         -- use { 'quangnguyen30192/cmp-nvim-ultisnips',
             -- config = function()
@@ -95,7 +89,6 @@ return require('packer').startup({
         use { 'ludovicchabant/vim-gutentags' }
         use { 'tpope/vim-surround' }
         use { 'tpope/vim-repeat' }
-        use { 'BurntSushi/ripgrep' }
         use { 'nvim-telescope/telescope.nvim', 
             requires = {
                 { 'nvim-lua/plenary.nvim' }, 

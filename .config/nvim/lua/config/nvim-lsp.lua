@@ -29,6 +29,7 @@ vim.cmd [[
 augroup LSPDiagnosticsOnHover
   autocmd!
   autocmd CursorHold * lua _G.LspDiagnosticsPopupHandler()
+  autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb{sign={enabled=true,priority=12}}
 augroup END
 ]]
 
@@ -96,7 +97,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<Leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   -- buf_set_keymap('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'ca', ':CodeActionMenu<CR>', opts)
+  buf_set_keymap('n', '<Leader>ca', ':CodeActionMenu<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '<Leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
@@ -117,6 +118,7 @@ local servers = {
   'html',
   'eslint',
   'gopls',
+  'julials',
 }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {

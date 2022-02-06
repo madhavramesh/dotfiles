@@ -2,6 +2,7 @@ local o = vim.o
 local cmd = vim.cmd
 
 local cmp = require'cmp'
+local luasnip = require'luasnip'
 -- local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 
 o.completeopt = 'menu,menuone,noselect'
@@ -39,7 +40,7 @@ cmp.setup({
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
-      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      luasnip.lsp_expand(args.body) -- For `luasnip` users.
       -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
     end,
   },
@@ -55,8 +56,8 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `f
     ["<Tab>"] = function(fallback)
         if cmp.visible() then
-          cmp.select_next_item()
-        elseif require("luasnip").expand_or_jumpable() then
+            cmp.select_next_item()
+        elseif luasnip.expand_or_jumpable() then
           vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
         else
           fallback()
@@ -65,7 +66,7 @@ cmp.setup({
       ["<S-Tab>"] = function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
-        elseif require("luasnip").jumpable(-1) then
+        elseif luasnip.jumpable(-1) then
           vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
         else
           fallback()
@@ -94,7 +95,7 @@ cmp.setup({
   formatting = {
     format = function(entry, vim_item)
       -- Kind icons
-      -- This concatonates the icons with the name of the item kind
+      -- This concatenates the icons with the name of the item kind
       vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
       -- vim_item.kind = string.format('%s %s', 'kind', vim_item.kind)
       return vim_item
@@ -117,3 +118,6 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
+
+-- load vscode style snippets
+-- require('luasnip.loaders.from_vscode').load({paths = '~/.config/nvim'})
