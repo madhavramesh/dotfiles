@@ -1,0 +1,9 @@
+{
+    "diagnostics.globals": [
+        "vim",
+        "use",
+        "require",
+        "_lazygit_toggle",
+        "t"
+    ]
+}
