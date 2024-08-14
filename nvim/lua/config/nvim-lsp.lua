@@ -180,6 +180,7 @@ return {
             }),
             extensions = {
                 inlay_hints = {
+                    highlight = 'Conceal',
                 },
                 ast = {
                     role_icons = {

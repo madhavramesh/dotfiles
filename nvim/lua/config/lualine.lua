@@ -3,7 +3,7 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = {
         options = {
-            theme = 'gruvbox',
+            theme = 'gruvbox-material',
         },
         sections = {
             lualine_a = { 'mode' },

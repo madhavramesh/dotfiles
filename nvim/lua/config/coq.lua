@@ -10,6 +10,7 @@ return {
         map('i', '<c-c>', [[pumvisible() ? "<c-e><c-c>" : "<c-c>"]], { expr = true, noremap = true })
         map('i', '<tab>', [[pumvisible() ? "<c-n>" : "<tab>"]], { expr = true, noremap = true })
         map('i', '<s-tab>', [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = true })
+        map('i', '<CR>', [[pumvisible() ? (complete_info().selected == -1 ? "<c-e><CR>" : "<c-y>") : "<CR>"]], { expr = true, noremap = true, silent = true })
 
         -- autostart coq
         g.coq_settings = {
@@ -36,18 +37,18 @@ return {
                     mode = "short",
                 },
             },
-            clients = {
-                snippets = {
-                    warn = {},
-                },
+            -- clients = {
+                -- snippets = {
+                    -- warn = {},
+                -- },
                 -- tree_sitter = {
                 -- weight_adjust = 0.35, -- prioritize TreeSitter a little more
                 -- path_sep = "", -- I don't like the symbol
                 -- },
-                tags = {
-                    weight_adjust = 0.4, -- prioritize tags the most; most informative
-                },
-            },
+                -- tags = {
+                    -- weight_adjust = 0.4, -- prioritize tags the most; most informative
+                -- },
+            -- },
             -- disable <C-K> keymaps
             keymap = {
                 jump_to_mark = "",

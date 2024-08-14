@@ -16,6 +16,7 @@ return {
 
             g.gruvbox_flat_style = 'dark'
             g.gruvbox_colors = { error = '#ff0000' }
+            g.gruvbox_theme = { PmenuSel = { fg = 'black', bg = 'green' }}
             cmd [[colorscheme gruvbox-flat]]
         end,
     },
@@ -28,7 +29,7 @@ return {
     -- config = function()
     -- o.termguicolors = true
     -- o.background = 'dark'
-
+--
     -- cmd [[colorscheme catppuccin]]
     -- end,
     -- },
@@ -81,7 +82,10 @@ return {
     -- highlight and search todo comments (todo-comments.lua)
     {
         'folke/todo-comments.nvim',
-        dependencies = { 'nvim-lua/plenary.nvim' },
+        dependencies = {
+          'nvim-telescope/telescope.nvim',
+          'nvim-lua/plenary.nvim',
+        },
         config = true,
     },
     -- dim inactive splits

@@ -10,7 +10,7 @@ return {
 
             -- C/C++
             null_ls.builtins.formatting.clang_format.with({
-                extra_args = { "-style=file" }
+                extra_args = { "-std=c++20", "-style=file" }
             }),
 
             -- Cmake
@@ -30,6 +30,9 @@ return {
 
             -- Java
             -- null_ls.builtins.formatting.google-java-format,
+
+            -- Lua
+            null_ls.builtins.formatting.luaformatter,
 
             -- Text files
             -- null_ls.builtins.formatting.codespell,
@@ -77,7 +80,7 @@ return {
                     group = augroup,
                     buffer = bufnr,
                     callback = function()
-                        lsp_formatting(bufnr)
+                        vim.lsp.buf.format({ bufnr = bufnr })
                     end,
                 })
             end

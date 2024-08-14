@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- manually set python executable for faster load times
 -- see https://www.redd.it/r9acxp/
-vim.g.python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.9/bin/python3'
+vim.g.python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.11/bin/python3'
 
 -- install packages
 require('lazy').setup('config')
