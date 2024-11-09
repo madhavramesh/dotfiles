@@ -153,10 +153,6 @@ return {
         config = true,
     },
 
-    -- SNIPPETS
-    -- filetype and syntax plugin for latex (vimtex.lua)
-    -- snippets (luasnip.lua)
-
     -- GIT
     -- git blame (blamer.lua)
     -- basic git commands
