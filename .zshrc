@@ -248,6 +248,9 @@ glgr() {
 
 compdef _branches glgr
 
+# up - cd up multiple levels easily
+up() { cd $(eval printf '../'%.0s {1..$1}); }
+
 alias weather="curl -s v2.wttr.in/72034"
 
 # Ruby
