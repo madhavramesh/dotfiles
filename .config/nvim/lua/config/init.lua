@@ -109,7 +109,7 @@ return {
     -- high-performance color highlighter
     {
         'NvChad/nvim-colorizer.lua',
-        config = {
+        opts = {
             user_default_options = {
                 RRGGBBAA = true,
             }
@@ -124,7 +124,7 @@ return {
     -- displays lightbulb when code actions are available
     {
         'kosayoda/nvim-lightbulb',
-        config = {
+        opts = {
             autocmd = { enabled = true },
         }
     },

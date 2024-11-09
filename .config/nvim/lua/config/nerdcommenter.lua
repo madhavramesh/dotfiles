@@ -2,6 +2,7 @@ local g = vim.g
 
 return {
     'preservim/nerdcommenter',
+    lazy  = false,
     keys = { '<leader>cc', '<leader>cu' },
     config = function()
         g.NERDCreateDefaultMappings = 1

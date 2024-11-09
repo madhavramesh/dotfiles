@@ -21,7 +21,8 @@ return {
                 'lua_ls',               -- Lua
                 'pyright',              -- Python
                 'rust_analyzer',        -- Rust
-                'tsserver'              -- JS[X], TS[X]
+                'ts_ls',                -- JS[X], TS[X]
+                'jsonnet_ls'            -- Jsonnet
             },
         })
 
@@ -143,15 +144,16 @@ return {
         local servers = {
             'asm_lsp',              -- Assembly
             'bashls',               -- Bash
-            -- 'clangd',               -- C/C++ NOTE: disabled for clangd_extensions.nvim
+            -- 'clangd',            -- C/C++ NOTE: disabled for clangd_extensions.nvim
             'dockerls',             -- Docker
             'eslint',               -- JS[X], TS[X], Vue
             'gopls',                -- Go
             'jedi_language_server', -- Python
             'pyright',              -- Python
-            -- 'rust_analyzer',        -- Rust NOTE: disabled for rust-tools.nvim
-            -- 'sumneko_lua',          -- Lua
-            'tsserver' -- JS[X], TS[X]
+            -- 'rust_analyzer',     -- Rust NOTE: disabled for rust-tools.nvim
+            -- 'sumneko_lua',       -- Lua
+            'ts_ls',                -- JS[X], TS[X]
+            'jsonnet_ls'
         }
 
         local capabilities = vim.lsp.protocol.make_client_capabilities() -- disable warnings for clangd

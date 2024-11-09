@@ -9,13 +9,19 @@ local header_art =
 return {
     'echasnovski/mini.nvim',
     version = '*',
+    dependencies = {
+      'echasnovski/mini.sessions'
+    }, -- add support for sessions
     config = function()
+        require('mini.sessions').setup()
+
         local starter = require('mini.starter')
         starter.setup({
             evaluate_single = true,
             items = {
                 starter.sections.recent_files(10, false, false),
                 starter.sections.builtin_actions(),
+                starter.sections.sessions(3, true)
             },
             content_hooks = {
                 function(content)
@@ -41,5 +47,7 @@ return {
             au User MiniStarterOpened nmap <buffer> k <Cmd>lua MiniStarter.update_current_item('prev')<CR>
           augroup END
         ]])
+
+        vim.keymap.set("n", "<leader>msw", '<Cmd>lua MiniSessions.write(vim.fn.input("Session Name > "))<CR>')
     end
 }

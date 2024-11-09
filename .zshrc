@@ -97,9 +97,16 @@ plugins=(git
 	zsh-vi-mode
   fast-syntax-highlighting
 	fzf
+  you-should-use
+  zsh-bat
+  sudo
 )
 
 source $ZSH/oh-my-zsh.sh
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # User configuration
 
@@ -118,25 +125,6 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vi=nvim
-alias vim=nvim
-
-# source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/madhavramesh/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -152,6 +140,8 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+alias vi=nvim
+alias vim=nvim
 
 # fd - cd to selected directory
 fd() {
@@ -165,6 +155,103 @@ fd() {
 fh() {
   eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }
+
+# used to provide tab completion for git aliases listed below
+_branches() {
+  local branches
+  branches=$(git branch --format='%(refname:short)')
+
+  _arguments "1:branch:($echo $branches))" "2:branch:($echo $branches))" "3:branch:($(echo $branches))" "4:branch:($echo $branches))" "5:branch:($(echo $branches))"
+}
+
+# gbdel - delete branches locally whose PRs have been merged 
+gbdel() {
+  for br in ($git branch | grep -v '*'); do 
+    exists=0
+    for r in ($git remote); do 
+      if [ "$(git branch -r --list $r/$br)" != "" ]; then
+        exists=1
+      fi
+    done
+
+    if [ $exists eq 1 ]; then 
+      echo "existing: $br"
+    else 
+      echo "No remotes for $br. Remove [y/N]? \c"; read ans
+      if [ "$ans" = "y" -o "$ans" = "Y" ]; then
+        git branch _d $br
+      fi
+    fi
+  done
+}
+
+alias gsm='git checkout master and git branch -d master && git checkout -b master'
+
+# gpo - create a PR on this branch
+gpo() {
+  username=$(git config github.username)
+  branch=$(git branch --show-current)}
+
+  if [ "$branch" = "master"]; then
+    echo "Warning: You are on the master branch. Please switch to a project-specific branch before creating a PR"
+    return 1
+  fi
+
+  if ] "$1" = "pull" ]; then
+    git pull master
+  fi
+}
+
+# gfs - fetch from master and switch to a new branch
+gfs() {
+  git fetch master
+  git switch -c "$1" master
+}
+
+# gconf - show merge/rebase conflicts
+gconf() {
+  echo "Merge conflicts detected. Listing conflicted files:"
+    git diff --name-only --diff-filter=U | while read file;
+  do echo -e "  \033[31m$file\033[0m"
+  done
+}
+
+# glgr - concise git log showing past 20 commits
+glgr() {
+  c="HEAD"
+  n=20
+  arg=""
+  
+  if [ $# -ge 1 ]; then 
+    if [ "$1" = "-fp" ]; then 
+      arg="--first-parent"
+    else
+      c="$1"
+    fi
+  fi
+  
+  if [ $# -ge 2 ]; then
+    n="$2"
+  fi
+
+  # Check if the specified range is valid
+  if git rev-parse "$c~$n" >/dev/null 2>&1; then
+    range="${c}~${n}..${c}"
+  else
+    range="$c"
+  fi
+  
+  git log "$range" $arg --graph --oneline \
+    --pretty=format:"%C(yellow)%h%Creset - %C(green)%cd%C(auto)%d%Creset - %C(red)%an%Creset : %s" \
+    --date=format-local:'%Y-%m-%d %H:%M:%S' --decorate=full
+}
+
+compdef _branches glgr
+
+alias weather="curl -s v2.wttr.in/72034"
+
+# Ruby
+export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 # Add clangd to environment path 
 export PATH="/usr/local/opt/llvm/bin:$PATH"
@@ -182,3 +269,6 @@ export VISUAL=nvim
 export EDITOR=nvim
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+[[ -s "/Users/madhavramesh/.gvm/scripts/gvm" ]] && source "/Users/madhavramesh/.gvm/scripts/gvm"
+
+export PATH="/opt/homebrew/opt/mysql/bin:$PATH"

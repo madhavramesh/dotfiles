@@ -80,7 +80,7 @@ alt + ctrl - l : yabai -m window --resize right:50:0; \
                  yabai -m window --resize left:50:0
 
 # balance size of windows
-alt + shift - 0 : yabai -m space --balance
+alt + shift - . : yabai -m space --balance
 
 # change layout of desktop
 # alt - e : yabai -m space --layout bsp
