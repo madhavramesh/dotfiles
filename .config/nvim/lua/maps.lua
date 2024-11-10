@@ -14,7 +14,7 @@ g.mapleader = ' '
 g.maplocalleader = ' '
 
 -- clear search highlighting
-map('n', '<Leader>noh<CR>', ':nohlsearch<CR>')
+-- map('n', '<Leader>hi<CR>', ':noh<CR>')
 
 -- increment/decrement
 map('n', '+', '<C-A>')

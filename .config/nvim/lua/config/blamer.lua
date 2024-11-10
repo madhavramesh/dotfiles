@@ -1,16 +1,13 @@
-local g = vim.g
-local cmd = vim.cmd
-
 return {
     'APZelos/blamer.nvim',
     cmd = 'BlamerToggle',
-    keys = { '<leader>', 'b' },
+    keys = { '<leader>b' },  -- Corrected keybinding
     config = function()
-        g.blamer_enabled = 1
-        g.blamer_delay = 250
-        g.blamer_show_in_insert_modes = 0
-        g.blamer_show_in_visual_modes = 0
+        vim.api.nvim_set_var('blamer_enabled', 1)
+        vim.api.nvim_set_var('blamer_delay', 250)
+        vim.api.nvim_set_var('blamer_show_in_insert_modes', 0)
+        vim.api.nvim_set_var('blamer_show_in_visual_modes', 0)
 
-        cmd('highlight Blamer guifg=lightgrey')
+        vim.api.nvim_command('highlight Blamer guifg=lightgrey')
     end
 }

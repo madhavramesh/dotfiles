@@ -7,10 +7,10 @@ return {
     config = function()
         -- Helpful key re-maps for Coq
         map('i', '<esc>', [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
-        map('i', '<c-c>', [[pumvisible() ? "<c-e><c-c>" : "<c-c>"]], { expr = true, noremap = true })
+        map('i', '<C-c>', [[pumvisible() ? "<c-e><c-c>" : "<c-c>"]], { expr = true, noremap = true })
         map('i', '<tab>', [[pumvisible() ? "<c-n>" : "<tab>"]], { expr = true, noremap = true })
         map('i', '<s-tab>', [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = true })
-        map('i', '<CR>', [[pumvisible() ? (complete_info().selected == -1 ? "<c-e><CR>" : "<c-y>") : "<CR>"]], { expr = true, noremap = true, silent = true })
+        map('i', '<CR>', [[pumvisible() ? (complete_info().selected == -1 ? "<c-e>" : "<c-y>") : "<CR>"]], { expr = true, noremap = true, silent = true })
 
         -- autostart coq
         g.coq_settings = {
@@ -19,20 +19,20 @@ return {
             -- completion_auto_timeout = 0.2,
             -- },
             display = {
-                pum = {
-                    x_max_len = 50, -- make suggestions window smaller
-                    x_truncate_len = 16, -- fix weird brackets
-                },
-                preview = {
-                    x_max_len = 60, -- make preview window smaller
-                    resolve_timeout = 0.88,
-                    positions = {
-                        north = 2,
-                        south = 3,
-                        east = 1,
-                        west = 4,
-                    }
-                },
+                -- pum = {
+                    -- x_max_len = 50, -- make suggestions window smaller
+                    -- x_truncate_len = 16, -- fix weird brackets
+                -- },
+                -- preview = {
+                    -- x_max_len = 60, -- make preview window smaller
+                    -- resolve_timeout = 0.88,
+                    -- positions = {
+                        -- north = 2,
+                        -- south = 3,
+                        -- east = 1,
+                        -- west = 4,
+                    -- },
+                -- },
                 icons = {
                     mode = "short",
                 },
