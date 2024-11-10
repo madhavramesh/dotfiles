@@ -187,6 +187,12 @@ return {
             { '<Leader>ge', ':Copilot enable<cr>',  desc = 'Enable github copilot' },
         },
     },
+    -- identify inefficient commands
+    {
+       "m4xshen/hardtime.nvim",
+       dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+       opts = { max_count = 6 }
+    },
     -- FIX: copilot integration with coq
     -- { 'ms-jpq/coq.thirdparty', config = [[require('config.coq-thirdparty')]] }
 }

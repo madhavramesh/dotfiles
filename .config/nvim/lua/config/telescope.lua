@@ -7,19 +7,20 @@ return {
     { 'nvim-telescope/telescope-file-browser.nvim' },
   },
   keys = {
-    { '<Leader>ff', ':Telescope find_files<cr>',            desc = 'Search files' },
-    { '<Leader>fg', ':Telescope live_grep<cr>',             desc = 'Search text' },
-    { '<Leader>fb', ':Telescope buffers<cr>',               desc = 'Search buffers' },
-    { '<Leader>ft', ':TodoTelescope keywords=TODO,FIX<cr>', desc = "Search todos" },
-    { '<Leader>fh', ':Telescope help_tags<cr>',             desc = 'Search help tags' },
-    { '<Leader>fm', ':Telescope man_pages<cr>',             desc = 'Search buffers' },
-    { '<Leader>fn', ':Telescope notify<cr>',                desc = 'Search notifications' },
+    { '<Leader>ff', ':Telescope find_files<cr>',             desc = 'Search files' },
+    { '<Leader>fg', ':Telescope live_grep<cr>',              desc = 'Search text' },
+    { '<Leader>fb', ':Telescope buffers<cr>',                desc = 'Search buffers' },
+    { '<Leader>ft', ':TodoTelescope keywords=TODO,FIX<cr>',  desc = "Search todos" },
+    { '<Leader>fh', ':Telescope help_tags<cr>',              desc = 'Search help tags' },
+    { '<Leader>fm', ':Telescope man_pages sections=ALL<cr>', desc = 'Search man pages' },
+    { '<Leader>fn', ':Telescope notify<cr>',                 desc = 'Search notifications' },
   },
   config = function()
     local telescope = require('telescope')
     local fb_actions = require("telescope").extensions.file_browser.actions
 
-    -- Set explicit highlight groups for Telescope borders
+    -- Set explicit highlight groups for Telescope borders otherwise they get overriden
+    -- by gruvbox theme
     vim.cmd [[
       highlight TelescopeBorder guifg=NONE guibg=NONE
       highlight TelescopePromptBorder guifg=NONE guibg=NONE
@@ -35,10 +36,11 @@ return {
             preview_width = 0.6, -- available only for layout_config; see :help telescope.layout
           },
         },
-        results_title = "",
-        prompt_title = "",
+        preview_title = false,
+        results_title = false,
+        prompt_title = false,
         -- in general, don't follow .gitignore, but don't want these still
-        file_ignore_patterns = { "node_modules", ".git", ".terraform", "%.jpg", "%.png", '.rustup' },
+        file_ignore_patterns = { "node_modules", ".git", ".terraform", "%.jpg", "%.jpeg", "%.png", "%.avi", "%.mp4", '.rustup' },
         -- used for grep_string and live_grep
         vimgrep_arguments = {
           "rg",
@@ -51,7 +53,7 @@ return {
           "--no-ignore",
           "--trim",
         },
-        border = true,  -- or specify a border style
+        border = true, 
         borderchars = {
             "─", "│", "─", "│", "╭", "╮", "╯", "╰"
         },
@@ -60,20 +62,49 @@ return {
       pickers = {
         find_files = {
           hidden = true,
-          prompt_title = "",
+          prompt_title = false,
+          preview_title = false,
+          results_title = false,
         },
         buffers = {
           sort_lastused = true,
+          prompt_title = false,
+          preview_title = false,
+          results_title = false,
         },
+        live_grep = { 
+          prompt_title = false,
+          preview_title = false,
+          results_title = false,
+        },
+        man_pages = {
+          prompt_title = false,
+          preview_title = false,
+          results_title = false,
+        },
+        help_tags = {
+          prompt_title = false,
+          preview_title = false,
+          results_title = false,
+        },
+        -- TODO: Disable prompt_Title, preview_title, and results_title in notify and todo pickers
       },
       extensions = {
         file_browser = {
+          hijack_netrw = true,
           mappings = {
-            i = {
+            ["i"] = {
               -- insert mode mappings
               ["<C-n>"] = fb_actions.create,
               ["<C-r>"] = fb_actions.rename,
               ["<C-d>"] = fb_actions.remove,
+            },
+            ["n"] = {
+              -- normal mode mappings
+              ["a"]  = fb_actions.create,
+              ["cw"] = fb_actions.rename,
+              ["<Leader>rn"] = fb_actions.rename,
+              ["dd"] =  fb_actions.remove
             }
           }
         },
