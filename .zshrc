@@ -275,3 +275,5 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 [[ -s "/Users/madhavramesh/.gvm/scripts/gvm" ]] && source "/Users/madhavramesh/.gvm/scripts/gvm"
 
 export PATH="/opt/homebrew/opt/mysql/bin:$PATH"
+
+export PATH=/Users/madhavramesh/.tiup/bin:$PATH
