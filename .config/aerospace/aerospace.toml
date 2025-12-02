@@ -12,7 +12,16 @@ config-version = 2
 # You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-  'exec-and-forget borders active_color=0xfffe8019 inactive_color=0xff282828 width=7.0'
+  'exec-and-forget borders active_color=0xfffe8019 inactive_color=0xff282828 width=7.0 hidpi=off',
+  'exec-and-forget sketchybar'
+]
+
+# Notify Sketchybar about workspace change
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change'
+]
+exec-on-mode-changed = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=$AEROSPACE_MODE'
 ]
 
 # Start AeroSpace at login
